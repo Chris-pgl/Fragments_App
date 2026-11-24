@@ -1,12 +1,22 @@
 package com.example.fragments_app
 
 import android.os.Bundle
+import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 
 class MainActivity : AppCompatActivity() {
+
+    lateinit var btn1: Button
+    lateinit var btn2: Button
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -31,8 +41,31 @@ class MainActivity : AppCompatActivity() {
          * e così via se serve.
          */
 
+        btn1 = findViewById(R.id.btn1)
+        btn2 = findViewById(R.id.btn2)
+
+        btn1.setOnClickListener {
+            loadFragment(FirstFragment())
+        }
+
+        btn2.setOnClickListener {
+            loadFragment(SecondFragment())
+        }
+
+
 
     }
 
+    //creo un metodo per avviare la transazione dei fragment
+    fun loadFragment(fragment: Fragment) {
+        val fm : FragmentManager = supportFragmentManager
+        val ft : FragmentTransaction = fm.beginTransaction()
+        ft.replace(R.id.frameLayout, fragment)
+        ft.commit()
+    }
+
+
 
 }
+
+
